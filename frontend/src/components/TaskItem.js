@@ -1,5 +1,9 @@
 import React from "react";
-import { FaTrash, FaCheck } from "react-icons/fa";
+
+import {
+  FaTrash,
+  FaCheck,
+} from "react-icons/fa";
 
 const TaskItem = ({
   task,
@@ -9,13 +13,20 @@ const TaskItem = ({
   return (
     <div
       className={`task-card ${
-        task.completed ? "completed" : ""
+        task.status ===
+        "completed"
+          ? "completed"
+          : ""
       }`}
     >
       <div>
         <h3>{task.title}</h3>
 
         <p>{task.description}</p>
+
+        <small>
+          Status: {task.status}
+        </small>
       </div>
 
       <div className="task-actions">

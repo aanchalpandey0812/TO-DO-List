@@ -1,16 +1,46 @@
 import axios from "axios";
 
+const API_URL =
+  "http://localhost:5000/api";
+
 const API = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: API_URL,
 });
 
-export const getTasks = () => API.get("/");
+export const getTasks = (
+  search = ""
+) =>
+  API.get(
+    `/tasks?search=${search}`
+  );
 
-export const createTask = (taskData) =>
-  API.post("/", taskData);
+export const createTask = (
+  taskData
+) =>
+  API.post(
+    "/tasks",
+    taskData
+  );
 
-export const updateTask = (id, taskData) =>
-  API.put(`/${id}`, taskData);
+export const updateTask = (
+  id,
+  updatedData
+) =>
+  API.put(
+    `/tasks/${id}`,
+    updatedData
+  );
 
-export const deleteTask = (id) =>
-  API.delete(`/${id}`);
+export const deleteTask = (
+  id
+) =>
+  API.delete(`/tasks/${id}`);
+
+export const updateStatus = (
+  id,
+  status
+) =>
+  API.patch(
+    `/tasks/${id}/status`,
+    { status }
+  );

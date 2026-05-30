@@ -1,30 +1,97 @@
-const Todo = require("../models/todoModel");
+const todoService = require(
+  "../services/todoService"
+);
 
-const getTasks = async (req, res) => {
+exports.getTasks = async (
+  req,
+  res
+) => {
   try {
-    const tasks = await Todo.find();
+    const tasks =
+      await todoService.getAllTasks(
+        req.query.search
+      );
 
     res.json(tasks);
   } catch (error) {
     res.status(500).json({
-      message: error.message
+      message: error.message,
     });
   }
 };
 
-const createTask = async (req, res) => {
+exports.createTask = async (
+  req,
+  res
+) => {
   try {
-    const task = await Todo.create(req.body);
+    const task =
+      await todoService.createTask(
+        req.body
+      );
 
     res.status(201).json(task);
   } catch (error) {
-    res.status(500).json({
-      message: error.message
+    res.status(400).json({
+      message: error.message,
     });
   }
 };
 
-module.exports = {
-  getTasks,
-  createTask
+exports.updateTask = async (
+  req,
+  res
+) => {
+  try {
+    const task =
+      await todoService.updateTask(
+        req.params.id,
+        req.body
+      );
+
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.deleteTask = async (
+  req,
+  res
+) => {
+  try {
+    await todoService.deleteTask(
+      req.params.id
+    );
+
+    res.json({
+      message:
+        "Task deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+exports.updateStatus = async (
+  req,
+  res
+) => {
+  try {
+    const task =
+      await todoService.updateStatus(
+        req.params.id,
+        req.body.status
+      );
+
+    res.json(task);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };

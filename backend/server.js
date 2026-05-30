@@ -1,4 +1,4 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+const errorHandler = require("./middleware/errorMiddleware");
 require("dns").setDefaultResultOrder("ipv4first");
 require("dotenv").config();
 
@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 app.use("/api/tasks", todoRoutes);
 
 const PORT = process.env.PORT || 5000;
-
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

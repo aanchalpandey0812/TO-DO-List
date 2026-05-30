@@ -3,6 +3,14 @@ So in Backend we have to focus on building TO-DO-List using Node.js,Express.js a
 
 Purpose of the assignment: for practicing seamless communication between the frontend and backend to make a fully functional To-Do List app.
 
+The application allows users to:
+1.Add tasks
+2.View tasks
+3.Update tasks
+4.Delete tasks
+5.Mark tasks as completed
+6.Search tasks
+
 Frontend
 1.React.js
 2.Axios
@@ -42,18 +50,119 @@ It is used for displaying task list dynamically.
 This waits for API request to finish.
 createTask(taskData) sends data to backend and backend stores task in MongoDB.
 
+And now i am able to understand and write a more polish code compared to eariler time.This time i already know many things because of previous assignment .
+
 Features:
-1.Add new tasks
-2.Delete tasks
-3.Update task status
-4.Search tasks
-5.Store data in MongoDB
-6.Dynamic UI updates
-7.REST API integration
+1.Add new task
+2.Delete task
+3.Update task
+4.Search task
+5.Mark task as completed
+6.Responsive UI
+7.MongoDB database integration
 
 Challenges:
 1.MongoDB Atlas connection issue because IP was not whitelisted:As i am using this for the 1st time i faced silly challenges in connections.
 2.Node.js version compatibility issue:Backend is not supporting latest version of Node.js during this challenge i got know about NVM Node.js thing.
 3.Understanding React state updates after API calls.
-4.I also find logic building during code writing difficult ,lots of error are there in my code which i unable to find early i have taken help for understanding that.
+4.Handling errors and validations.
 
+
+=>CORS allows frontend and backend to communicate even when running on different ports.
+Frontend:
+localhost:3000
+Backend:
+localhost:5000
+Example:
+javascript
+const cors = require("cors");
+app.use(cors());
+
+ Frontend Technologies
+1.React.js:
+React.js is used to build frontend UI using components.
+
+In this assignment React is used for:
+Displaying tasks
+Updating UI dynamically
+Managing state
+
+2.useState Hook:
+useState stores and updates data.
+
+Example:
+javascript
+const [tasks, setTasks] = useState([]);
+Used for:
+ Storing tasks
+ Updating tasks dynamically
+
+3.useEffect Hook:
+useEffect runs functions automatically when component loads.
+
+Example:
+javascript
+useEffect(() => {
+  fetchTasks();
+}, []);
+
+Used for:Fetching tasks when page loads
+
+ 4.Axios
+ Axios is used to make API requests.
+ Used for:
+ 1.GET requests
+ 2.POST requests
+ 3.PUT requests
+ 4.DELETE requests
+ 5.PATCH requests
+
+ Example:
+ javascript
+ axios.get("/api/tasks");
+
+ 5.React Icons
+ Used to display icons in UI.
+ 
+ Example:
+ javascript
+ import { FaTrash, FaCheck } from "react-icons/fa";
+ Used for:
+ Delete icon
+ Complete task i
+
+APIs Implemented
+1.GET API
+Purpose:Fetch all tasks
+Endpoint:GET /api/tasks
+
+2.POST API
+Purpose:Create new task
+Endpoint:POST /api/tasks
+
+3.PUT API
+Purpose:Update task
+Endpoint:PUT /api/tasks/:id
+
+4.DELETE API
+Purpose:Delete task
+Endpoint:DELETE /api/tasks/:id
+
+5.PATCH API
+Purpose:Update task status
+Endpoint:PATCH /api/tasks/:id/status
+
+6.Search API
+Purpose:Search tasks
+Endpoint:GET /api/tasks?search=text
+
+Conclusion
+This project helped in understanding:
+1.MERN stack development
+2.API creation
+3.MongoDB integration
+4.React frontend integration
+4.CRUD operations
+5.Project structure and code organization
+
+Netlify deployed link:https://adorable-griffin-b19079.netlify.app

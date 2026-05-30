@@ -13,26 +13,34 @@ import {
   createTask,
   updateTask,
   deleteTask,
+  updateStatus,
 } from "./services/api";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] =
+    useState([]);
+
   const [loading, setLoading] =
     useState(true);
 
   const [error, setError] =
     useState("");
 
+  const [search, setSearch] =
+    useState("");
+
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
+  const fetchTasks = async (
+    searchText = ""
+  ) => {
     try {
       setLoading(true);
 
       const { data } =
-        await getTasks();
+        await getTasks(searchText);
 
       setTasks(data);
     } catch (err) {
@@ -77,20 +85,45 @@ function App() {
     }
   };
 
+  const editTask = async (
+    id,
+    updatedData
+  ) => {
+    try {
+      const { data } =
+        await updateTask(
+          id,
+          updatedData
+        );
+
+      setTasks(
+        tasks.map((task) =>
+          task._id === id
+            ? data
+            : task
+        )
+      );
+    } catch (err) {
+      setError(
+        "Failed to update task"
+      );
+    }
+  };
+
   const toggleComplete = async (
     task
   ) => {
     try {
-      const updatedTask = {
-        ...task,
-        completed:
-          !task.completed,
-      };
+      const updatedStatus =
+        task.status ===
+        "completed"
+          ? "pending"
+          : "completed";
 
       const { data } =
-        await updateTask(
+        await updateStatus(
           task._id,
-          updatedTask
+          updatedStatus
         );
 
       setTasks(
@@ -107,9 +140,25 @@ function App() {
     }
   };
 
+  const handleSearch = (e) => {
+    const value = e.target.value;
+
+    setSearch(value);
+
+    fetchTasks(value);
+  };
+
   return (
     <div className="container">
       <h1>To-Do List App</h1>
+
+      <input
+        type="text"
+        placeholder="Search tasks..."
+        value={search}
+        onChange={handleSearch}
+        className="search-input"
+      />
 
       <AddTask
         addTask={addTask}
@@ -131,6 +180,7 @@ function App() {
         toggleComplete={
           toggleComplete
         }
+        editTask={editTask}
       />
     </div>
   );
